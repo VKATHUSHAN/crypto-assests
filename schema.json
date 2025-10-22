@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Token List Schema",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the token list"
+    },
+    "logoURI": {
+      "type": "string",
+      "format": "uri",
+      "description": "URI for the token list logo"
+    },
+    "keywords": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Keywords associated with the token list"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The timestamp of the last update"
+    },
+    "version": {
+      "type": "object",
+      "properties": {
+        "major": {"type": "integer"},
+        "minor": {"type": "integer"},
+        "patch": {"type": "integer"}
+      },
+      "required": ["major", "minor", "patch"]
+    },
+    "tags": {
+      "type": "object",
+      "description": "Tag definitions"
+    },
+    "tokens": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "chainId": {"type": "integer"},
+          "address": {"type": "string"},
+          "name": {"type": "string"},
+          "symbol": {"type": "string"},
+          "decimals": {"type": "integer"},
+          "logoURI": {"type": "string", "format": "uri"},
+          "tags": {
+            "type": "array",
+            "items": {"type": "string"}
+          }
+        },
+        "required": ["chainId", "address", "name", "symbol", "decimals"]
+      }
+    }
+  },
+  "required": ["name", "timestamp", "version", "tokens"]
+}
