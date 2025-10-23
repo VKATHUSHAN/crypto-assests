@@ -1,0 +1,11 @@
+[
+  {
+    "chainId": 10,
+    "address": "0x7BeB51807E3c8BdB10A2868bD51c2D9E1764925D",
+    "name": "Wrapped Tether USD Coin",
+    "symbol": "USDT.w",
+    "decimals": 18,
+    "logoURI": "https://raw.githubusercontent.com/VKATHUSHAN/crypto-assests/main/evm-usd.png",
+    "tags": ["stablecoin", "wrapped"]
+  }
+]
