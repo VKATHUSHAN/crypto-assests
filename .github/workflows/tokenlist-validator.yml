@@ -12,6 +12,8 @@ jobs:
   validate:
     name: Validate tokenlist.json and logo URLs
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v4
