@@ -1,11 +1,11 @@
 {
   "name": "VKATHUSHAN Token List",
   "logoURI": "https://raw.githubusercontent.com/VKATHUSHAN/crypto-assests/main/evm-usd.png",
-  "keywords": ["USDT", "wrapped", "tether", "usdox", "stablecoin", "evm", "crypto", "ethereum", "optimism"],
-  "timestamp": "2025-10-22T12:00:00Z",
+  "keywords": ["USDT", "wrapped", "tether", "usdox", "stablecoin", "evm", "crypto", "ethereum", "optimism", "binance", "bsc"],
+  "timestamp": "2025-10-23T11:51:00Z",
   "version": {
     "major": 1,
-    "minor": 1,
+    "minor": 2,
     "patch": 0
   },
   "tags": {
@@ -45,6 +45,24 @@
       "decimals": 18,
       "logoURI": "https://raw.githubusercontent.com/VKATHUSHAN/crypto-assests/main/evm-usd.png",
       "tags": ["stablecoin", "wrapped"]
+    },
+    {
+      "chainId": 56,
+      "address": "0xf5c470025e99f97a4CA6416c77a685db929e929b",
+      "name": "TheUSDOX",
+      "symbol": "USDC",
+      "decimals": 18,
+      "logoURI": "https://raw.githubusercontent.com/VKATHUSHAN/crypto-assests/copilot/add-token-logos-binance/blockchains/binance-smart-chain/assets/0xf5c470025e99f97a4ca6416c77a685db929e929b/logo.png",
+      "tags": ["stablecoin"]
+    },
+    {
+      "chainId": 56,
+      "address": "0x213E501dF9E837D64dCb9f04A63b10B063dbD87D",
+      "name": "USDOX Reward",
+      "symbol": "rUSDOX",
+      "decimals": 18,
+      "logoURI": "https://raw.githubusercontent.com/VKATHUSHAN/crypto-assests/copilot/add-token-logos-binance/blockchains/binance-smart-chain/assets/0x213e501df9e837d64dcb9f04a63b10b063dbd87d/logo.png",
+      "tags": ["stablecoin"]
     }
   ]
 }
