@@ -52,7 +52,7 @@
       "name": "TheUSDOX",
       "symbol": "USDC",
       "decimals": 18,
-      "logoURI": "https://raw.githubusercontent.com/VKATHUSHAN/crypto-assests/copilot/add-token-logos-binance/blockchains/binance-smart-chain/assets/0xf5c470025e99f97a4ca6416c77a685db929e929b/logo.png",
+      "logoURI": "https://raw.githubusercontent.com/VKATHUSHAN/crypto-assests/main/blockchains/binance-smart-chain/assets/0xf5c470025e99f97a4ca6416c77a685db929e929b/logo.png",
       "tags": ["stablecoin"]
     },
     {
@@ -61,7 +61,7 @@
       "name": "USDOX Reward",
       "symbol": "rUSDOX",
       "decimals": 18,
-      "logoURI": "https://raw.githubusercontent.com/VKATHUSHAN/crypto-assests/copilot/add-token-logos-binance/blockchains/binance-smart-chain/assets/0x213e501df9e837d64dcb9f04a63b10b063dbd87d/logo.png",
+      "logoURI": "https://raw.githubusercontent.com/VKATHUSHAN/crypto-assests/main/blockchains/binance-smart-chain/assets/0x213e501df9e837d64dcb9f04a63b10b063dbd87d/logo.png",
       "tags": ["stablecoin"]
     }
   ]
