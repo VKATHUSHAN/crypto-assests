@@ -3,7 +3,7 @@
   "logoURI": "https://cdn.jsdelivr.net/gh/VKATHUSHAN/crypto-assests@main/evm-usd.png",
   "keywords": ["USDT","wrapped","tether","usdox","stablecoin","evm","crypto","ethereum","optimism","binance","bsc"],
   "timestamp": "2025-10-24T02:11:43Z",
-  "version": {"major":1,"minor":2,"patch":3},
+  "version": {"major":1,"minor":2,"patch":1},
   "tags": {"stablecoin":{"name":"Stablecoin","description":"Tokens that are fixed to an external asset, e.g. the US dollar"},"wrapped":{"name":"Wrapped","description":"Tokens that represent a wrapped/bridged version of another asset"}},
   "tokens": [
     {"chainId":1,"address":"0xC248D1Ea863FDD815df60248F1358dEe6E771eC7","name":"Tether USD Coin Wrapped","symbol":"USDT","decimals":6,"logoURI":"https://cdn.jsdelivr.net/gh/VKATHUSHAN/crypto-assests@main/evm-usd.png","tags":["stablecoin","wrapped"]},
