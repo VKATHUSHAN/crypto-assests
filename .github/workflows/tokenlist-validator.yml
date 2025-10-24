@@ -1,0 +1,71 @@
+name: Validate tokenlist
+
+on:
+  push:
+    paths:
+      - 'tokenlist.json'
+  pull_request:
+    paths:
+      - 'tokenlist.json'
+
+jobs:
+  validate:
+    name: Validate tokenlist.json and logo URLs
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install jq and curl (for URL checks)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq curl
+
+      - name: Validate JSON format
+        run: |
+          jq . tokenlist.json > /dev/null
+
+      - name: Run Uniswap tokenlist validator
+        run: |
+          npm install ajv ajv-formats @uniswap/token-lists
+          cat > validate.js << 'EOF'
+          const Ajv = require('ajv');
+          const addFormats = require('ajv-formats');
+          const fs = require('fs');
+          const schema = require('@uniswap/token-lists').schema;
+          
+          const ajv = new Ajv({ allErrors: true });
+          addFormats(ajv);
+          
+          const tokenList = JSON.parse(fs.readFileSync('tokenlist.json', 'utf8'));
+          const validate = ajv.compile(schema);
+          const valid = validate(tokenList);
+          
+          if (!valid) {
+            console.error('Validation errors:', JSON.stringify(validate.errors, null, 2));
+            process.exit(1);
+          }
+          
+          console.log('✓ Token list is valid according to Uniswap schema!');
+          EOF
+          node validate.js
+
+      - name: Check logoURIs return 200
+        run: |
+          set -e
+          urls=$(jq -r '.tokens[].logoURI' tokenlist.json)
+          for u in $urls; do
+            echo "Checking $u"
+            status=$(curl -s -o /dev/null -w "%{http_code}" "$u")
+            if [ "$status" -ne 200 ]; then
+              echo "::error::Logo URL returned $status: $u"
+              exit 1
+            fi
+          done
