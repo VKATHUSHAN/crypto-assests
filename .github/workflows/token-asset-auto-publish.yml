@@ -1,0 +1,73 @@
+name: Token Asset Auto Publish
+
+on:
+  push:
+    paths:
+      - '0x*/logo.png'
+      - '0x*/info.json'
+
+jobs:
+  validate-and-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install tools (ImageMagick, jq, pngquant)
+        run: sudo apt-get update && sudo apt-get install -y imagemagick jq pngquant
+
+      - name: Validate and compress logo.png (size/dimensions)
+        run: |
+          for file in $(find . -type f -path "./0x*/logo.png"); do
+            if [[ $(identify -format "%wx%h" "$file") != "256x256" ]]; then
+              echo "$file is not 256x256, resizing."
+              convert "$file" -resize 256x256\! "$file"
+            fi
+            if [[ $(stat -c%s "$file") -gt 102400 ]]; then
+              echo "$file exceeds 100kb, compressing."
+              pngquant --quality=80-90 --ext .png --force "$file"
+            fi
+            if [[ $(stat -c%s "$file") -gt 102400 ]]; then
+              echo "$file still too large after compression! Please manually optimize."
+              exit 1
+            fi
+          done
+
+      - name: Validate info.json for structure and fields
+        run: |
+          for file in $(find . -type f -path "./0x*/info.json"); do
+            jq . "$file"
+            for field in name symbol address decimals chainId logoURI; do
+              if ! jq -e "has(\"$field\")" "$file" > /dev/null; then
+                echo "Missing '$field' in $file"
+                exit 1
+              fi
+            done
+          done
+
+      - name: Prepare branch for PR
+        run: |
+          git config --global user.email "github-actions-bot@users.noreply.github.com"
+          git config --global user.name "GitHub Actions Bot"
+          BRANCH="add-token-asset-$GITHUB_RUN_ID"
+          git checkout -b $BRANCH
+
+      - name: Copy assets for PR
+        run: |
+          mkdir -p ./assets/blockchains/ethereum/assets
+          for dir in 0x*/; do
+            mkdir -p "./assets/blockchains/ethereum/assets/${dir%/}"
+            cp "$dir/logo.png" "./assets/blockchains/ethereum/assets/${dir%/}/logo.png"
+            cp "$dir/info.json" "./assets/blockchains/ethereum/assets/${dir%/}/info.json"
+          done
+
+      - name: Commit and prepare for PR
+        run: |
+          git add ./assets/blockchains/ethereum/assets
+          git commit -m "Add new token asset(s) for PR"
+          git push origin HEAD
+
+      - name: Next Steps
+        run: |
+          echo "Go to your forked TrustWallet/assets repo, and create a pull request from your branch."
+          echo "Follow their PR template, and check that your asset passes all automated checks!"
