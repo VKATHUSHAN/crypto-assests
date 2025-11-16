@@ -49,19 +49,21 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Submit to Uniswap
-        if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.modified, 'logo')
-        run: node scripts/submit-uniswap.js
+      - name: Submit to Uniswap (Automated Fork & PR)
+        if: (github.event.inputs.uniswap == 'true' || github.event_name != 'workflow_dispatch') && github.event_name != 'pull_request'
+        run: node scripts/submit-uniswap-pr.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_ACTOR: ${{ github.actor }}
+          REPO_OWNER: ${{ github.repository_owner }}
 
-      - name: Submit to MetaMask
-        if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.modified, 'logo')
-        run: node scripts/submit-metamask.js
+      - name: Submit to MetaMask (Automated Fork & PR)
+        if: (github.event.inputs.metamask == 'true' || github.event_name != 'workflow_dispatch') && github.event_name != 'pull_request'
+        run: node scripts/submit-metamask-pr.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_ACTOR: ${{ github.actor }}
+          REPO_OWNER: ${{ github.repository_owner }}
 
       - name: Create submission summary
         if: always()
