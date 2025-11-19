@@ -1,0 +1,8 @@
+{
+  "name": "Tether USD Wrapped EVM",
+  "symbol": "USDT",
+  "address": "0x7BeB51807E3c8BdB10A2868bD51c2D9E1764925D",
+  "decimals": 6,
+  "chainId": 1,
+  "logoURI": "https://cdn.jsdelivr.net/gh/VKATHUSHAN/crypto-assests@main/0x7BeB51807E3c8BdB10A2868bD51c2D9E1764925D/logo.png"
+}
